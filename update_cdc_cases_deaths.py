@@ -10,7 +10,7 @@ def sync_cdc():
 	os.system("psql -U chuckschultz -d covid -c \"TRUNCATE cdc.cdc_cases_deaths\"")
 
 	try:
-		os.system(f"psql -U chuckschultz -d covid -c \"COPY cdc.cdc_cases_deaths FROM '{filename}' HEADER DELIMITER ',' CSV\"")
+		os.system(f"psql -U chuckschultz -d covid -c \"\\COPY cdc.cdc_cases_deaths FROM '{filename}' HEADER DELIMITER ',' CSV\"")
 	except:
 		print("Unable to import cdc_cases_deaths data")
 
