@@ -1,31 +1,8 @@
-import psycopg2
 import wget
 import os
 
-db_name = os.environ['db_name_covid']
-db_user = os.environ['db_user_covid']
-db_host = os.environ['db_host_covid']
-db_credentials = os.environ['db_creds_covid']
+
 tmp_data_path = os.environ['tmp_data_path']
-
-
-# connect to database
-def db_connect():
-	conn_string = f'dbname={db_name} user={db_user} host={db_host} password={db_credentials}'
-
-	# try:
-	conn = psycopg2.connect(conn_string)
-	conn.autocommit = True
-	# except:
-	# 	print('Unable to connect to the database')
-
-	cur = conn.cursor()
-	return cur
-
-dwh_cur = db_connect()
-
-
-
 
 
 def sync_cdc():
@@ -34,8 +11,6 @@ def sync_cdc():
 	wget.download(url, filename)
 
 	os.system("psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"TRUNCATE public.cdc_cases_deaths\"")
-	# truncate_sql = "TRUNCATE public.cdc_cases_deaths"
-	# dwh_cur.execute(truncate_sql)
 
 	try:
 		os.system(f"psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"\\COPY public.cdc_cases_deaths FROM '{filename}' HEADER DELIMITER ',' CSV\"")
