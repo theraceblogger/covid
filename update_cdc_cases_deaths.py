@@ -17,3 +17,4 @@ def sync_cdc():
 	os.system(f"rm {filename}")
 
 sync_cdc()
+#
