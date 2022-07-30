@@ -1,24 +1,50 @@
 import wget
-import os
+# import os
+# import psycopg2
+
+
+# # connect to database
+# def db_connect():
+# 	db_name = os.environ['db_name_covid']
+# 	db_user = os.environ['db_user_covid']
+# 	db_host = os.environ['db_host_covid']
+# 	db_credentials = os.environ['db_creds_covid']
+# 	conn_string = f'dbname={db_name} user={db_user} host={db_host} password={db_credentials}'
+
+# 	try:
+# 		conn = psycopg2.connect(conn_string)
+# 		conn.autocommit = True
+# 	except:
+# 		print('Unable to connect to the database')
+
+# 	cur = conn.cursor()
+# 	return cur
 import psycopg2
+from psycopg2.extras import DictCursor
+import os
+import sys
+import re
+from datetime import datetime, timedelta
+temp_filepath = os.environ['tmp_filepath']
 
 
-# connect to database
 def db_connect():
 	db_name = os.environ['db_name_covid']
 	db_user = os.environ['db_user_covid']
 	db_host = os.environ['db_host_covid']
 	db_credentials = os.environ['db_creds_covid']
-	conn_string = f'dbname={db_name} user={db_user} host={db_host} password={db_credentials}'
+
+	conn_string = "dbname='" + str(db_name) + "' user='" + str(db_user) + "' host='" + str(db_host) + "' password='" + str(db_credentials) + "'"
 
 	try:
-		conn = psycopg2.connect(conn_string)
+		conn = psycopg2.connect(str(conn_string))
 		conn.autocommit = True
 	except:
-		print('Unable to connect to the database')
+		print("Unable to connect to the database")
 
-	cur = conn.cursor()
+	cur = conn.cursor(cursor_factory=DictCursor)
 	return cur
+
 
 dwh_cur = db_connect()
 
