@@ -26,7 +26,7 @@ import sys
 import re
 from datetime import datetime, timedelta
 
-
+conn = None
 def db_connect():
 	db_name = os.environ['db_name_covid']
 	db_user = os.environ['db_user_covid']
