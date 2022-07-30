@@ -25,7 +25,6 @@ import os
 import sys
 import re
 from datetime import datetime, timedelta
-temp_filepath = os.environ['tmp_filepath']
 
 
 def db_connect():
