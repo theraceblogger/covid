@@ -9,8 +9,7 @@ def db_connect():
 	db_user = os.environ['db_user_covid']
 	db_host = os.environ['db_host_covid']
 	db_credentials = os.environ['db_creds_covid']
-	# conn_string = f'dbname={db_name} user={db_user} host={db_host} password={db_credentials}'
-	conn_string = "dbname='" + str(db_name) + "' user='" + str(db_user) + "' host='" + str(db_host) + "' password='" + str(db_credentials) + "'"
+	conn_string = f'dbname={db_name} user={db_user} host={db_host} password={db_credentials}'
 
 	try:
 		conn = psycopg2.connect(conn_string)

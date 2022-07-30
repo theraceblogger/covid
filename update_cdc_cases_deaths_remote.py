@@ -25,14 +25,14 @@ sync_cdc()
 
 
 import psycopg2
-db_name = os.environ['db_name_covid']
-db_user = os.environ['db_user_covid']
-db_host = os.environ['db_host_covid']
-db_credentials = os.environ['db_creds_covid']
 
 
 # connect to database
 def db_connect():
+	db_name = os.environ['db_name_covid']
+	db_user = os.environ['db_user_covid']
+	db_host = os.environ['db_host_covid']
+	db_credentials = os.environ['db_creds_covid']
 	conn_string = f'dbname={db_name} user={db_user} host={db_host} password={db_credentials}'
 
 	try:
