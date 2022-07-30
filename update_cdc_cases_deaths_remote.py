@@ -24,12 +24,11 @@ sync_cdc()
 # path from local /usr/local/bin/python3
 
 
-# import psycopg2
-# db_name = os.environ['db_name_covid']
-# db_user = os.environ['db_user_covid']
-# db_host = os.environ['db_host_covid']
-# db_credentials = os.environ['db_creds_covid']
-# tmp_data_path = os.environ['tmp_data_path']
+import psycopg2
+db_name = os.environ['db_name_covid']
+db_user = os.environ['db_user_covid']
+db_host = os.environ['db_host_covid']
+db_credentials = os.environ['db_creds_covid']
 
 
 # connect to database
@@ -45,7 +44,7 @@ def db_connect():
 	cur = conn.cursor()
 	return cur
 
-# dwh_cur = db_connect()
+dwh_cur = db_connect()
 
-# truncate_sql = "TRUNCATE public.cdc_cases_deaths"
-	# dwh_cur.execute(truncate_sql)
+truncate_sql = "TRUNCATE public.cdc_cases_deaths"
+	dwh_cur.execute(truncate_sql)
