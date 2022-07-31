@@ -10,11 +10,10 @@ def db_connect():
 	db_user = os.environ['db_user_covid']
 	db_host = os.environ['db_host_covid']
 	db_credentials = os.environ['db_creds_covid']
-	# conn_string = f'dbname={db_name} user={db_user} host={db_host} password={db_credentials}'
-	conn_string = "dbname='" + str(db_name) + "' user='" + str(db_user) + "' host='" + str(db_host) + "' password='" + str(db_credentials) + "'"
+	conn_string = f'dbname={db_name} user={db_user} host={db_host} password={db_credentials}'
 
 	try:
-		conn = psycopg2.connect(str(conn_string))
+		conn = psycopg2.connect(conn_string)
 		conn.autocommit = True
 	except:
 		print('Unable to connect to the database')
@@ -22,10 +21,11 @@ def db_connect():
 	cur = conn.cursor(cursor_factory=DictCursor)
 	return cur
 
-dwh_cur = db_connect()
+# db_cur = db_connect()
+
+
 
 tmp_data_path = os.environ['tmp_data_path']
-
 
 def sync_cdc():
 	url = 'https://data.cdc.gov/api/views/9mfq-cb36/rows.csv?accessType=DOWNLOAD'
@@ -41,4 +41,4 @@ def sync_cdc():
 
 	os.system(f"rm {filename}")
 
-# sync_cdc()
+sync_cdc()
