@@ -1,5 +1,5 @@
 #/usr/bin/bash
 
-/usr/local/bin/python3 update_cdc_cases_deaths.py sync_cdc
-/usr/local/bin/python3 update_cdc_cases_deaths.py sync_hhs
-/usr/local/bin/python3 update_cdc_cases_deaths.py sync_cdc_wastewater
+/usr/bin/python3 update_data.py sync_cdc
+/usr/bin/python3 update_data.py sync_hhs
+/usr/bin/python3 update_data.py sync_cdc_wastewater
