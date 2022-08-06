@@ -4,6 +4,8 @@ import sys
 import psycopg2
 from psycopg2.extras import DictCursor
 
+tmp_data_path = os.environ['tmp_data_path']
+
 
 # connect to database
 def db_connect():
@@ -26,23 +28,19 @@ def db_connect():
 
 
 
-tmp_data_path = os.environ['tmp_data_path']
-
 def sync_cdc():
 	url = 'https://data.cdc.gov/api/views/9mfq-cb36/rows.csv?accessType=DOWNLOAD'
 	filename = f'{tmp_data_path}/cdc_cases_deaths.csv'
 	wget.download(url, filename)
 
-	os.system("psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"TRUNCATE raw_data.cdc_cases_deaths\"")
+	os.system("/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"TRUNCATE raw_data.cdc_cases_deaths\"")
 
 	try:
-		os.system(f"psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"\\COPY raw_data.cdc_cases_deaths FROM '{filename}' HEADER DELIMITER ',' CSV\"")
+		os.system(f"/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"\\COPY raw_data.cdc_cases_deaths FROM '{filename}' HEADER DELIMITER ',' CSV\"")
 	except:
 		print('Unable to import cdc_cases_deaths data')
 
 	os.system(f"rm {filename}")
-
-# sync_cdc()
 
 
 
@@ -51,16 +49,15 @@ def sync_hhs():
 	filename = f'{tmp_data_path}/national_daily_hospitalizations.csv'
 	wget.download(url, filename)
 
-	os.system("psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"TRUNCATE raw_data.national_daily_hospitalizations\"")
+	os.system("/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"TRUNCATE raw_data.national_daily_hospitalizations\"")
 
 	try:
-		os.system(f"psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"\\COPY raw_data.national_daily_hospitalizations FROM '{filename}' HEADER DELIMITER ',' CSV\"")
+		os.system(f"/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"\\COPY raw_data.national_daily_hospitalizations FROM '{filename}' HEADER DELIMITER ',' CSV\"")
 	except:
 		print ('Unable to import national_daily_hospitalizations data')
 
 	os.system(f"rm {filename}")
 
-# sync_hhs()
 
 
 def sync_cdc_wastewater():
@@ -68,17 +65,14 @@ def sync_cdc_wastewater():
 	filename = f'{tmp_data_path}/cdc_wastewater.csv'
 	wget.download(url, filename)
 
-	os.system("psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"TRUNCATE raw_data.cdc_wastewater\"")
+	os.system("/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"TRUNCATE raw_data.cdc_wastewater\"")
 
 	try:
-		os.system(f"psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"\\COPY raw_data.cdc_wastewater FROM '{filename}' HEADER DELIMITER ',' CSV\"")
+		os.system(f"/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"\\COPY raw_data.cdc_wastewater FROM '{filename}' HEADER DELIMITER ',' CSV\"")
 	except:
 		print ('Unable to import cdc_wastewater data')
 
 	os.system(f"rm {filename}")
-
-
-# sync_cdc_wastewater()
 
 
 
