@@ -28,52 +28,67 @@ def db_connect():
 
 
 
-def sync_cdc():
+def sync_cases_deaths():
 	url = 'https://data.cdc.gov/api/views/9mfq-cb36/rows.csv?accessType=DOWNLOAD'
-	filename = f'{tmp_data_path}/cdc_cases_deaths.csv'
+	filename = f'{tmp_data_path}/cases_deaths.csv'
 	wget.download(url, filename)
 
-	os.system("/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"TRUNCATE raw_data.cdc_cases_deaths\"")
+	os.system("/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"TRUNCATE raw_data.cases_deaths\"")
 
 	try:
-		os.system(f"/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"\\COPY raw_data.cdc_cases_deaths FROM '{filename}' HEADER DELIMITER ',' CSV\"")
+		os.system(f"/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"\\COPY raw_data.cases_deaths FROM '{filename}' HEADER DELIMITER ',' CSV\"")
 	except:
-		print('Unable to import cdc_cases_deaths data')
+		print('Unable to import cases_deaths data')
 
 	os.system(f"rm {filename}")
 
 
 
-def sync_hhs():
+def sync_hospitalizations():
 	url = 'https://healthdata.gov/api/views/g62h-syeh/rows.csv?accessType=DOWNLOAD'
-	filename = f'{tmp_data_path}/national_daily_hospitalizations.csv'
+	filename = f'{tmp_data_path}/hospitalizations.csv'
 	wget.download(url, filename)
 
-	os.system("/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"TRUNCATE raw_data.national_daily_hospitalizations\"")
+	os.system("/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"TRUNCATE raw_data.hospitalizations\"")
 
 	try:
-		os.system(f"/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"\\COPY raw_data.national_daily_hospitalizations FROM '{filename}' HEADER DELIMITER ',' CSV\"")
+		os.system(f"/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"\\COPY raw_data.hospitalizations FROM '{filename}' HEADER DELIMITER ',' CSV\"")
 	except:
-		print ('Unable to import national_daily_hospitalizations data')
+		print ('Unable to import hospitalizations data')
 
 	os.system(f"rm {filename}")
 
 
 
-def sync_cdc_wastewater():
+def sync_wastewater():
 	url = 'https://data.cdc.gov/resource/2ew6-ywp6.csv?$limit=500000'
-	filename = f'{tmp_data_path}/cdc_wastewater.csv'
+	filename = f'{tmp_data_path}/wastewater.csv'
 	wget.download(url, filename)
 
-	os.system("/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"TRUNCATE raw_data.cdc_wastewater\"")
+	os.system("/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"TRUNCATE raw_data.wastewater\"")
 
 	try:
-		os.system(f"/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"\\COPY raw_data.cdc_wastewater FROM '{filename}' HEADER DELIMITER ',' CSV\"")
+		os.system(f"/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"\\COPY raw_data.wastewater FROM '{filename}' HEADER DELIMITER ',' CSV\"")
 	except:
-		print ('Unable to import cdc_wastewater data')
+		print ('Unable to import wastewater data')
 
 	os.system(f"rm {filename}")
 
+
+
+def sync_tests():
+	url = 'https://healthdata.gov/api/views/j8mb-icvb/rows.csv?accessType=DOWNLOAD'
+	filename = f'{tmp_data_path}/tests.csv'
+	wget.download(url, filename)
+
+	os.system("/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"TRUNCATE raw_data.tests\"")
+
+	try:
+		os.system(f"/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"\\COPY raw_data.tests FROM '{filename}' HEADER DELIMITER ',' CSV\"")
+	except:
+		print ('Unable to import tests data')
+
+	os.system(f"rm {filename}")
 
 
 
