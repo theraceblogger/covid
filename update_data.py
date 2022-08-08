@@ -92,6 +92,38 @@ def sync_tests():
 
 
 
+def sync_vaccinations():
+	url = 'https://data.cdc.gov/api/views/unsk-b7fc/rows.csv?accessType=DOWNLOAD'
+	filename = f'{tmp_data_path}/vaccinations.csv'
+	wget.download(url, filename)
+
+	os.system("/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"TRUNCATE raw_data.vaccinations\"")
+
+	try:
+		os.system(f"/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"\\COPY raw_data.vaccinations FROM '{filename}' HEADER DELIMITER ',' CSV\"")
+	except:
+		print ('Unable to import vaccinations data')
+
+	os.system(f"rm {filename}")
+
+
+
+def sync_variants():
+	url = 'https://data.cdc.gov/api/views/jr58-6ysp/rows.csv?accessType=DOWNLOAD'
+	filename = f'{tmp_data_path}/variants.csv'
+	wget.download(url, filename)
+
+	os.system("/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"TRUNCATE raw_data.variants\"")
+
+	try:
+		os.system(f"/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -c \"\\COPY raw_data.variants FROM '{filename}' HEADER DELIMITER ',' CSV\"")
+	except:
+		print ('Unable to import variants data')
+
+	os.system(f"rm {filename}")
+
+
+
 # setup initial functions that will redirect CLI to approriate function with zero to 2 params
 def no_params():
 	getattr(sys.modules[__name__], function_name)()
