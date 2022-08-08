@@ -27,7 +27,7 @@ def db_connect():
 # db_cur = db_connect()
 
 
-
+# https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36
 def sync_cases_deaths():
 	url = 'https://data.cdc.gov/api/views/9mfq-cb36/rows.csv?accessType=DOWNLOAD'
 	filename = f'{tmp_data_path}/cases_deaths.csv'
@@ -43,7 +43,7 @@ def sync_cases_deaths():
 	os.system(f"rm {filename}")
 
 
-
+# https://healthdata.gov/Hospital/COVID-19-Reported-Patient-Impact-and-Hospital-Capa/g62h-syeh
 def sync_hospitalizations():
 	url = 'https://healthdata.gov/api/views/g62h-syeh/rows.csv?accessType=DOWNLOAD'
 	filename = f'{tmp_data_path}/hospitalizations.csv'
@@ -59,7 +59,7 @@ def sync_hospitalizations():
 	os.system(f"rm {filename}")
 
 
-
+# https://data.cdc.gov/Public-Health-Surveillance/NWSS-Public-SARS-CoV-2-Wastewater-Metric-Data/2ew6-ywp6
 def sync_wastewater():
 	url = 'https://data.cdc.gov/resource/2ew6-ywp6.csv?$limit=500000'
 	filename = f'{tmp_data_path}/wastewater.csv'
@@ -75,7 +75,7 @@ def sync_wastewater():
 	os.system(f"rm {filename}")
 
 
-
+# https://healthdata.gov/dataset/COVID-19-Diagnostic-Laboratory-Testing-PCR-Testing/j8mb-icvb
 def sync_tests():
 	url = 'https://healthdata.gov/api/views/j8mb-icvb/rows.csv?accessType=DOWNLOAD'
 	filename = f'{tmp_data_path}/tests.csv'
@@ -91,7 +91,7 @@ def sync_tests():
 	os.system(f"rm {filename}")
 
 
-
+# https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc
 def sync_vaccinations():
 	url = 'https://data.cdc.gov/api/views/unsk-b7fc/rows.csv?accessType=DOWNLOAD'
 	filename = f'{tmp_data_path}/vaccinations.csv'
@@ -107,7 +107,7 @@ def sync_vaccinations():
 	os.system(f"rm {filename}")
 
 
-
+# https://data.cdc.gov/Laboratory-Surveillance/SARS-CoV-2-Variant-Proportions/jr58-6ysp
 def sync_variants():
 	url = 'https://data.cdc.gov/api/views/jr58-6ysp/rows.csv?accessType=DOWNLOAD'
 	filename = f'{tmp_data_path}/variants.csv'
