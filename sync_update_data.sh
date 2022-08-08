@@ -11,3 +11,5 @@
 
 # process raw data
 /usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -f /home/ec2-user/covid/sql/process_tests.sql
+/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -f /home/ec2-user/covid/sql/process_cases.sql
+/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -f /home/ec2-user/covid/sql/process_deaths.sql
