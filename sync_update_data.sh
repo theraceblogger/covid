@@ -16,3 +16,4 @@
 /usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -f /home/ec2-user/covid/sql/process_hospitalizations.sql
 /usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -f /home/ec2-user/covid/sql/process_vaccinations.sql
 /usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -f /home/ec2-user/covid/sql/process_variants.sql
+/usr/bin/psql -U $db_user_covid -d $db_name_covid -h $db_host_covid -f /home/ec2-user/covid/sql/process_wastewater.sql
