@@ -16,7 +16,7 @@ WITH deaths_data AS (
 	
 SELECT
 deaths.*
-, round((deaths.trailing7_deaths / pop.population * 100000), 2) AS trailing7_deaths_per100k
+, round((deaths.trailing7_deaths / pop.population * 1000000), 2) AS trailing7_deaths_per_million
 , DENSE_RANK() OVER (PARTITION BY state_abbreviation ORDER BY result_date DESC) AS recency_rank
 
 FROM deaths_data deaths
